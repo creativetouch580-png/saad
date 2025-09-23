@@ -66,43 +66,32 @@
   <footer>
     <p>جميع الحقوق محفوظة © 2025– متجر عذق</p>
   </footer>
+<div id="timer"></div>
+
 <script>
-  // Set target date and time (Saudi time)
-  var targetDate = new Date("sep 22, 2025 10:00:00 GMT+0300").getTime();
- 
-  // عدل القيم هنا فقط لتحديد المدة
-  var hours = 0;    // عدد الساعات
-  var minutes = 1;  // عدد الدقائق
-  var seconds = 0; // عدد الثواني
-
-  // نحسب المدة بالمللي ثانية
-  var duration = (hours * 60 * 60 + minutes * 60 + seconds) * 1000;
-
-  // وقت الانتهاء = الآن + المدة
-  var targetDate = new Date().getTime() + duration;
+  // تحديد تاريخ ووقت انتهاء العرض (ساعة السعودية)
+  var targetDate = new Date("Sep 22, 2025 10:00:00 GMT+0300").getTime();
 
   var x = setInterval(function() {
     var now = new Date().getTime();
     var distance = targetDate - now;
 
+    // حساب الأيام والساعات والدقائق والثواني
     var d = Math.floor(distance / (1000 * 60 * 60 * 24));
     var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var s = Math.floor((distance % (1000 * 60)) / 1000);
 
+    // عرض الوقت في العنصر
     document.getElementById("timer").innerHTML =
       d + " يوم " + h + " ساعة " + m + " دقيقة " + s + " ثانية";
 
+    // عند انتهاء العد
     if (distance < 0) {
       clearInterval(x);
       document.getElementById("timer").innerHTML = "انتهى العرض 😔";
     }
   }, 1000);
-</script>
-<script>
-  function toggleMenu() {
-    document.getElementById("menu").classList.toggle("active");
-  }
-</script>
+                                   </script>
 </body>
 </html>
