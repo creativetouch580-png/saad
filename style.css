@@ -127,3 +127,21 @@
   font-size: 1.5rem;
   letter-spacing: 2px;
   }
+#cart {
+  position: fixed;
+  bottom: -300px; /* مخفية في البداية */
+  right: 20px;
+  width: 300px;
+  background: #111;
+  color: #fff;
+  border-radius: 12px 12px 0 0;
+  padding: 15px;
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.5);
+  transition: bottom 0.5s ease;
+  z-index: 1000;
+}
+
+/* عندما نريد عرضها */
+#cart.show {
+  bottom: 20px; /* تتحرك للأعلى لتكون مرئية */
+}
