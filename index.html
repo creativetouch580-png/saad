@@ -30,7 +30,7 @@
     <div class="card-content">
       <h3>مياة صفا 200مل*48عبوة</h3>
       <p>السعر: 25ريال</p>
-      <a href="#" target="_blank" rel="noopener noreferrer" class="btn">اطلب الآن</a>
+       <a href="#" class="btn add-to-cart" data-name="مياة صفا 200مل*48عبوة" data-price="25">اطلب الآن</a>
     </div>
   </div>
 
@@ -39,7 +39,7 @@
     <div class="card-content">
       <h3>أندومي شعيرية</h3>
        <p>السعر: 0.95 هللة</p>
-      <a href="#" target="_blank" rel="noopener noreferrer" class="btn">اطلب الآن</a>
+       <a href="#" class="btn add-to-cart" data-name=" اندومي شعيرية  " data-price="25">اطلب الآن</a>
     </div>
   </div>
 
@@ -93,5 +93,66 @@
     }
   }, 1000);
                                    </script>
+  <section id="cart" class="cart-hidden">
+  <h2>سلة مشترياتك</h2>
+  <div id="cart-items"></div>
+  <p id="cart-total">الإجمالي: 0 ريال</p>
+  <button id="checkout-btn" class="btn">الدفع الآن</button>
+  </section>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const addToCartButtons = document.querySelectorAll(".add-to-cart");
+  const cartSection = document.getElementById("cart");
+  const cartItemsDiv = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+  const checkoutBtn = document.getElementById("checkout-btn");
+
+  let cart = [];
+
+  function updateCart() {
+    cartItemsDiv.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      total += item.price;
+      const div = document.createElement("div");
+      div.innerHTML = `${item.name} - ${item.price} ريال <button onclick="removeItem(${index})">إزالة</button>`;
+      cartItemsDiv.appendChild(div);
+    });
+
+    cartTotal.innerText = `الإجمالي: ${total} ريال`;
+  }
+
+  window.removeItem = function(index) {
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  addToCartButtons.forEach(button => {
+    button.addEventListener("click", e => {
+      e.preventDefault();
+      const name = button.getAttribute("data-name");
+      const price = parseFloat(button.getAttribute("data-price"));
+      cart.push({ name, price });
+      updateCart();
+
+      // إظهار السلة عند إضافة منتج
+      cartSection.classList.add("show");
+      setTimeout(() => cartSection.classList.remove("show"), 5000);
+    });
+  });
+
+  checkoutBtn.addEventListener("click", () => {
+    if(cart.length === 0){
+      alert("السلة فارغة!");
+    } else {
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      alert(`شكراً لطلبك! إجمالي السعر: ${total} ريال`);
+      cart = [];
+      updateCart();
+    }
+  });
+});
+</script>              
 </body>
 </html>
